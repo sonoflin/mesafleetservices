@@ -186,7 +186,7 @@ const MesaMap = (function () {
     const label = USES[state.use].label;
     if (state.scenario === 'current') {
       return USES[state.use].isNew
-        ? `<strong>${label}</strong> isn’t defined in Mesa’s code today — there’s nothing to map yet. Switch to <em>Proposed</em> to see where it would be allowed.`
+        ? `<strong>${label}</strong> isn’t defined in Mesa’s code today. There’s nothing to map yet. Switch to <em>Proposed</em> to see where it would be allowed.`
         : `<strong>${label}</strong> isn’t permitted in any district today.`;
     }
     if (state.scenario === 'proposed') {

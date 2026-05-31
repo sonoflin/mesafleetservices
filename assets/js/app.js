@@ -140,7 +140,7 @@
         <button class="faq-q" aria-expanded="false" aria-controls="faq-a-${i}">
           <span>${f.q}</span><span class="faq-ico" aria-hidden="true">+</span>
         </button>
-        <div class="faq-a" id="faq-a-${i}" role="region"><div class="faq-a-inner"><p>${f.a}</p></div></div>
+        <div class="faq-a" id="faq-a-${i}" role="region"><div class="faq-a-inner">${f.a}</div></div>
       </div>`).join('');
     el.querySelectorAll('.faq-q').forEach((btn) => {
       btn.addEventListener('click', () => {

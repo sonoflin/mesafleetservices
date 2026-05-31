@@ -328,6 +328,7 @@ section{scroll-margin-top:var(--nav-h)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
 .faq-a-inner{padding:0 clamp(18px,2vw,28px) clamp(16px,1.6vw,22px)}
 .faq-a p{margin:0;color:var(--muted);font-size:clamp(15px,1.1vw,19px)}
+.faq-a p + p{margin-top:.85em}
 .faq-a strong{color:var(--ink)}
 
 /* ---------------- timeline ---------------- */
