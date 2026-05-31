@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mesa Fleet Services & Service Station Amendments — One-Page Summary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --blue:#0071B9; --red:#BB2034; --amber:#E47D1C; --ink:#25282A; --gray:#8B8D8E;
+      --line:#dce4ea; --bg-alt:#f3f7fa;
+      --sans:"Avenir Next","Avenir","Jost","Segoe UI",Arial,sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:#e9eef2;color:var(--ink);font-family:var(--sans);line-height:1.42}
+    a{color:var(--blue)}
+
+    /* screen toolbar */
+    .toolbar{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;
+      gap:12px;background:#fff;border-bottom:1px solid var(--line);padding:12px 18px;flex-wrap:wrap}
+    .toolbar .tb-left{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--gray);font-size:14px}
+    .toolbar a.back{color:var(--gray);text-decoration:none;font-weight:600}
+    .btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font-family:var(--sans);
+      font-weight:700;font-size:14px;padding:10px 18px;border-radius:9px;background:var(--blue);color:#fff}
+    .btn:hover{background:#005a93}
+
+    /* the page sheet (Letter) */
+    .sheet{width:8.5in;min-height:11in;margin:18px auto;background:#fff;padding:0.5in 0.55in;
+      box-shadow:0 10px 40px rgba(16,34,46,.18);position:relative}
+
+    /* header */
+    .ph{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;border-bottom:3px solid var(--red);padding-bottom:10px}
+    .ph .logo{height:42px}
+    .ph .ph-r{text-align:right}
+    .eyebrow{font-size:9px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--blue)}
+    h1{font-size:21px;font-weight:800;margin:6px 0 2px;letter-spacing:-.01em;line-height:1.08}
+    .sub{font-size:11px;color:var(--gray)}
+    .ph-r .tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+      color:#fff;background:var(--amber);padding:3px 9px;border-radius:20px}
+    .ph-r .meta{font-size:10px;color:var(--gray);margin-top:6px;line-height:1.5}
+
+    .intro{font-size:11.5px;color:#3a474f;margin:10px 0 12px}
+    .intro b{color:var(--ink)}
+
+    /* three change blocks */
+    .blocks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .blk{border:1px solid var(--line);border-radius:9px;overflow:hidden;display:flex;flex-direction:column}
+    .blk h2{font-size:12.5px;margin:0;padding:7px 10px;color:#fff;display:flex;align-items:center;gap:6px}
+    .blk.fleet h2{background:var(--blue)} .blk.ev h2{background:var(--amber)} .blk.ss h2{background:var(--red)}
+    .blk .new{font-size:8px;font-weight:800;background:rgba(255,255,255,.28);padding:1px 5px;border-radius:8px;letter-spacing:.04em}
+    .blk .body{padding:8px 10px;font-size:10px;color:#3a474f}
+    .blk .body p{margin:0 0 6px}
+    .blk b{color:var(--ink)}
+    .blk ul{margin:4px 0 0;padding-left:14px}
+    .blk li{margin:2px 0}
+    .where{background:var(--bg-alt);border-top:1px solid var(--line);padding:6px 10px;font-size:9.5px;margin-top:auto}
+    .where .lab{font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.05em;font-size:8.5px}
+    .pill{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:5px;padding:0 5px;margin:2px 2px 0 0;font-weight:700;font-size:9px}
+    .pill.rem{border-color:var(--red);color:var(--red);text-decoration:line-through}
+
+    /* lower band: safeguards + legislation */
+    .band{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;margin-top:11px}
+    .panel{border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+    .panel h3{font-size:11px;margin:0 0 6px;color:var(--ink);display:flex;align-items:center;gap:7px}
+    .panel h3::before{content:"";width:16px;height:7px;background:var(--amber);clip-path:polygon(22% 0,100% 0,100% 100%,0 100%)}
+    .safe{display:grid;grid-template-columns:1fr 1fr;gap:3px 14px;font-size:9.5px;color:#3a474f}
+    .safe div{display:flex;gap:6px} .safe b{color:var(--ink)}
+    .leg{font-size:9.5px;color:#3a474f}
+    .leg .badge{display:inline-block;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;
+      color:var(--blue);background:rgba(0,113,185,.1);border:1px solid rgba(0,113,185,.25);padding:2px 7px;border-radius:12px;margin-bottom:5px}
+
+    /* timeline */
+    .tl{margin-top:11px;border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+    .tl h3{font-size:11px;margin:0 0 7px;color:var(--ink)}
+    .tl .row{display:flex;gap:6px;align-items:stretch}
+    .tl .step{flex:1;text-align:center;font-size:9px;color:#3a474f;position:relative;padding:0 4px}
+    .tl .step b{display:block;color:var(--blue);font-size:10px}
+    .tl .step .d{font-weight:800;color:var(--ink);font-size:9.5px}
+    .tl .arrow{color:var(--line);font-weight:800;align-self:center}
+    .tl .note{font-size:8.5px;color:var(--gray);margin-top:6px;font-style:italic}
+
+    /* footer */
+    .pf{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-top:12px;
+      border-top:1px solid var(--line);padding-top:8px}
+    .pf .c{font-size:9px;color:var(--gray);line-height:1.55}
+    .pf .c b{color:var(--ink)}
+    .pf .bar{height:9px;width:150px;border-radius:2px;
+      background:linear-gradient(90deg,var(--red) 0 33.3%,var(--amber) 33.3% 66.6%,var(--blue) 66.6% 100%)}
+    .disc{font-size:7.5px;color:var(--gray);margin-top:7px;line-height:1.45}
+
+    @media (max-width:900px){
+      .blocks{grid-template-columns:1fr} .band{grid-template-columns:1fr}
+      .tl .row{flex-direction:column} .tl .arrow{display:none} .safe{grid-template-columns:1fr}
+      .sheet{width:100%;min-height:0;padding:22px 18px}
+    }
+    @media print{
+      @page{size:Letter portrait;margin:0}
+      html,body{background:#fff}
+      .toolbar{display:none}
+      .sheet{width:auto;min-height:auto;margin:0;box-shadow:none;padding:0.45in 0.5in}
+      *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="tb-left"><a class="back" href="index.html">← Back to the interactive presentation</a></div>
+    <button class="btn" onclick="window.print()">⬇︎ Download / Print PDF</button>
+  </div>
+
+  <div class="sheet">
+    <!-- header -->
+    <div class="ph">
+      <div>
+        <img class="logo" src="assets/img/mesa-logo.png" alt="City of Mesa" />
+      </div>
+      <div class="ph-r">
+        <span class="tag">Council Briefing · One-Page Summary</span>
+        <div class="meta">Mesa Zoning Ordinance · Title&nbsp;11, Ch.&nbsp;6,&nbsp;7,&nbsp;8,&nbsp;31&nbsp;&amp;&nbsp;86<br>Development Services · Planning Division</div>
+      </div>
+    </div>
+
+    <div style="margin-top:10px">
+      <div class="eyebrow">Proposed Text Amendment · Subject to change based on feedback</div>
+      <h1>Fleet-Based Services &amp; Service Station Modernization</h1>
+      <p class="intro">Mesa’s current code was written for traditional gas stations. These <b>proposed</b>
+        amendments would add clear definitions, say <b>where</b> each use belongs, and set modern development
+        standards so the city can make room for <b>drone delivery</b>, <b>robo-taxi &amp; delivery fleets</b>, and
+        <b>private-sector EV charging</b> — while keeping them a good fit with the community. Figures shown are
+        proposed starting points and may change with stakeholder feedback.</p>
+    </div>
+
+    <!-- three changes -->
+    <div class="blocks">
+      <div class="blk fleet">
+        <h2>① Fleet-Based Services <span class="new">NEW / REVISED</span></h2>
+        <div class="body">
+          <p>Sites that park, stage, dispatch, fuel &amp; charge a fleet — <b>ground or aerial</b> (incl. drones).</p>
+          <ul>
+            <li><b>Light:</b> ≤ 24 vehicles &lt; 10,000 lbs</li>
+            <li><b>Heavy (new):</b> &gt; 24 vehicles, or any &gt; 10,000 lbs</li>
+          </ul>
+        </div>
+        <div class="where">
+          <span class="lab">Where allowed</span><br>
+          <span>Light:</span>
+          <span class="pill">LC</span><span class="pill">GC</span><span class="pill">LI</span><span class="pill">GI</span><span class="pill">HI</span>
+          <span class="pill" style="border-color:var(--amber);color:var(--amber)">+acc. DB-1/2, DC</span>
+          <span class="pill rem">OC</span><br>
+          <span>Heavy:</span>
+          <span class="pill">GC</span><span class="pill">GI</span><span class="pill">HI</span>
+        </div>
+      </div>
+
+      <div class="blk ev">
+        <h2>② Accessory EV Charging <span class="new">NEW</span></h2>
+        <div class="body">
+          <p>Lets a normal business add EV charging that stays <b>incidental</b> to its main use.</p>
+          <ul>
+            <li>Capped at <b>16 charging spaces</b></li>
+            <li>May <b>not</b> take required parking</li>
+            <li>Keeps it from becoming a service station</li>
+          </ul>
+        </div>
+        <div class="where">
+          <span class="lab">Where allowed</span><br>
+          <span class="pill">NC</span><span class="pill">LC</span><span class="pill">GC</span><span class="pill">OC</span><span class="pill">MX</span>
+          <span class="pill">PEP</span><span class="pill">LI</span><span class="pill">GI</span><span class="pill">HI</span>
+          <span class="pill">DB-1</span><span class="pill">DB-2</span><span class="pill">DC</span>
+        </div>
+      </div>
+
+      <div class="blk ss">
+        <h2>③ Service Stations <span class="new">MODERNIZED</span></h2>
+        <div class="body">
+          <p>Now serves the <b>public</b> with gas, diesel <b>or electricity</b> (EVSE) — not private fleets.</p>
+          <ul>
+            <li>Canopy ≤ <b>16 ft</b>; fascia ≤ 30 in</li>
+            <li>Recessed lighting; vehicle stacking rules</li>
+            <li>Max <b>2</b> per arterial intersection</li>
+          </ul>
+        </div>
+        <div class="where">
+          <span class="lab">Key idea</span><br>
+          <span>Separates <b>public</b> fueling/charging from <b>private</b> fleet operations.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- safeguards + legislation -->
+    <div class="band">
+      <div class="panel">
+        <h3>Neighborhood safeguards</h3>
+        <div class="safe">
+          <div><b>100 ft</b> separation from homes</div>
+          <div><b>60 dB</b> max at property line</div>
+          <div><b>Screening</b> walls (masonry / metal)</div>
+          <div><b>≤ 30 ft</b> aerial fleet yard height</div>
+          <div><b>≤ 20 fc</b> lighting near homes</div>
+          <div><b>Admin. flexibility</b> via studies</div>
+        </div>
+      </div>
+      <div class="panel leg">
+        <span class="badge">Why not say “drones”?</span>
+        <div>Arizona (incl. pending <b>HB 2875</b>) reserves <b>drone flight</b> rules to the state &amp; FAA, but
+          cities keep authority over <b>land use</b>. Mesa regulates <b>“aerial-based vehicles”</b> as a land
+          use — staying within its authority while mindful of the pending law.</div>
+      </div>
+    </div>
+
+    <!-- timeline -->
+    <div class="tl">
+      <h3>Tentative path to adoption</h3>
+      <div class="row">
+        <div class="step"><span class="d">May 27, 2026</span><b>Open House — held</b>Industry &amp; public feedback received</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="d">June 24, 2026</span><b>P&amp;Z Board</b>Recommendation to Council</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="d">July 2026</span><b>City Council</b>Consideration / adoption</div>
+        <div class="arrow">→</div>
+        <div class="step"><span class="d">+ 30 days</span><b>Effective</b>After Council approval</div>
+      </div>
+      <div class="note">Dates are tentative and subject to change as the amendments move through review.</div>
+    </div>
+
+    <!-- footer -->
+    <div class="pf">
+      <div class="c">
+        <b>Questions &amp; comments:</b> City of Mesa — Long Range Planning · <b>mesaaz.gov/lrplanning</b>
+      </div>
+      <div class="bar"></div>
+    </div>
+    <div class="disc">Unofficial public-information summary. District abbreviations: NC/LC/GC/OC/MX (commercial),
+      PEP/LI/GI/HI (employment), DB-1/DB-2/DC (downtown). Permitted locations reflect the <b>draft</b> land-use
+      tables, are subject to change with feedback, and are not a zoning determination — confirm specifics with
+      City of Mesa Planning.</div>
+  </div>
+
+</body>
+</html>

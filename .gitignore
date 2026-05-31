@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+
+# Python scratch
+__pycache__/
+*.pyc
+
+# Internal source material — kept local, NOT published to the public site
+docs/
+brand standards/
+images/
+
+# Preview/launch local config (keep launch.json if you want to share it)

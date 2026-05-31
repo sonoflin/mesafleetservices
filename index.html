@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0071B9" />
+  <title>Mesa Zoning Modernization — Fleet Services, EV Charging & Drone Delivery</title>
+  <meta name="description" content="How the City of Mesa is updating its zoning code for drone delivery, fleet-based services, robo-taxi & fleet charging, and electric vehicle charging — with an interactive map of where these uses are allowed today and under the proposed amendments." />
+
+  <!-- Leaflet -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+  <!-- esri-leaflet: overlay the City of Mesa's authoritative zoning labels & (optional) official zoning -->
+  <script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"
+          crossorigin=""></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Jost = closest free geometric match to the brand font (Avenir); Avenir used first if installed locally -->
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="City of Mesa — home">
+        <img src="assets/img/mesa-mark.png" alt="City of Mesa" class="brand-logo" />
+        <span class="brand-text">Zoning Modernization</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#overview">Overview</a>
+        <a href="#technology">Technology</a>
+        <a href="#map-section" class="nav-cta">Interactive Map</a>
+        <a href="#chart">Changes</a>
+        <a href="#standards">Standards</a>
+        <a href="#faq">FAQ</a>
+        <a href="onepager.html" class="nav-onepager">One-pager ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">City of Mesa · Proposed Text Amendment</div>
+        <h1>Zoning for what’s next:<br><span>drones, robo-fleets &amp; EV charging</span></h1>
+        <p class="hero-sub">
+          Mesa is <strong>proposing</strong> updates to its Zoning Ordinance so the code can keep pace
+          with drone delivery, robo-taxi and delivery fleets, and the growth of private-sector EV charging.
+          Zoning is a balancing act — making room for new technology so the whole community can share
+          in its benefits, while keeping it a good fit with the homes and businesses nearby. Explore
+          what’s being proposed, and see exactly where on the interactive map.
+        </p>
+        <div class="hero-actions">
+          <a href="#map-section" class="btn btn-primary">Open the interactive map →</a>
+          <a href="#overview" class="btn btn-ghost">What’s changing</a>
+        </div>
+        <div class="hero-pillars" id="heroPillars">
+          <div class="pillar"><span class="pillar-ic">🛩️</span>
+            <b>Drone delivery</b><span>clear rules for where launch &amp; recovery yards belong</span></div>
+          <div class="pillar"><span class="pillar-ic">🚕</span>
+            <b>Fleet &amp; robo-taxi charging</b><span>a home for private vehicle &amp; charging depots</span></div>
+          <div class="pillar"><span class="pillar-ic">⚡</span>
+            <b>Everyday EV charging</b><span>easier for any business to add charging</span></div>
+        </div>
+      </div>
+      <a href="#overview" class="scroll-cue" aria-label="Scroll down">▾</a>
+    </section>
+
+    <!-- ================= OVERVIEW ================= -->
+    <section id="overview" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">The big picture</span>
+          <h2>What Mesa is doing — and why</h2>
+          <p class="lead">
+            The current code was written for traditional gas stations. It doesn’t clearly address
+            commercial EV charging, private vehicle fleets, or aerial (drone) delivery. The
+            <strong>proposed</strong> text amendments would add clear definitions, say where each use
+            belongs, and set modern development standards — amending Title&nbsp;11,
+            Chapters&nbsp;6, 7, 8, 31&nbsp;&amp;&nbsp;86. They are a starting point for discussion and
+            may change with public and Council feedback.
+          </p>
+        </div>
+
+        <div class="cards" id="overviewCards">
+          <article class="card accent-fleet">
+            <div class="card-tag">New &amp; revised use</div>
+            <h3>Fleet-Based Services</h3>
+            <p>A clear new framework for sites that park, stage, dispatch, fuel and charge a fleet —
+               <strong>ground or aerial</strong>. Split into <strong>Light</strong> (≤24 vehicles &lt;10k lbs)
+               and a brand-new <strong>Heavy</strong> tier.</p>
+          </article>
+          <article class="card accent-ev">
+            <div class="card-tag">New accessory use</div>
+            <h3>Accessory EV Charging</h3>
+            <p>Lets a normal business add up to <strong>16 charging spaces</strong> without becoming a
+               service station — and without taking the parking it’s required to provide.</p>
+          </article>
+          <article class="card accent-station">
+            <div class="card-tag">Modernized use</div>
+            <h3>Service Stations</h3>
+            <p>The definition now includes dispensing <strong>electricity</strong> via EVSE, serves the
+               <strong>public</strong> (not fleets), and gets updated canopy, lighting, stacking &amp;
+               neighborhood-separation standards.</p>
+          </article>
+          <article class="card accent-drone">
+            <div class="card-tag">Emerging technology</div>
+            <h3>Drone Delivery</h3>
+            <p>Aerial delivery (Zipline, Wing, Amazon Prime Air) is regulated as an
+               <strong>aerial Fleet-Based Service</strong>, with screening and height rules tailored to
+               launch-and-recover yards.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TECHNOLOGY ================= -->
+    <section id="technology" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Emerging technology</span>
+          <h2>The technologies driving the change</h2>
+          <p class="lead">
+            These uses are already operating across the U.S. Mesa’s amendments make sure the code is
+            ready for them. Here’s what they actually look like on the ground — tap any card to visit
+            the operator.
+          </p>
+        </div>
+
+        <h3 class="subhead"><span class="subhead-bar"></span>Drone delivery</h3>
+        <div class="tech-grid" id="droneGrid"></div>
+
+        <!-- Pending-legislation note (light touch) -->
+        <aside class="leg-note" id="legNote"></aside>
+
+        <h3 class="subhead"><span class="subhead-bar"></span>EV &amp; fleet charging at scale</h3>
+        <div class="tech-grid" id="evGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= MAP (CENTERPIECE) ================= -->
+    <section id="map-section" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">The centerpiece</span>
+          <h2>Where are these uses allowed?</h2>
+          <p class="lead">
+            This interactive map uses Mesa’s <strong>real zoning data</strong>. Pick a use, then switch
+            between <strong>today’s code</strong>, the <strong>proposal</strong>, or a side-by-side of
+            just the <strong>changes</strong>. Toggle the satellite view to see it on the ground.
+          </p>
+        </div>
+      </div>
+
+      <div class="map-wrap container-wide">
+        <!-- Controls -->
+        <div class="map-controls" id="mapControls">
+          <div class="mc-block">
+            <div class="mc-label">Use</div>
+            <div class="seg seg-use" id="useButtons"></div>
+            <p class="mc-help" id="useHelp"></p>
+          </div>
+
+          <div class="mc-block">
+            <div class="mc-label">View</div>
+            <div class="seg seg-scenario" id="scenarioButtons">
+              <button data-sc="current">Today</button>
+              <button data-sc="proposed" class="active">Proposed</button>
+              <button data-sc="changes">Changes</button>
+            </div>
+          </div>
+
+          <div class="mc-block">
+            <div class="mc-label">Basemap</div>
+            <div class="seg seg-base" id="baseButtons">
+              <button data-base="street" class="active">Street</button>
+              <button data-base="satellite">Satellite</button>
+            </div>
+          </div>
+
+          <div class="mc-block">
+            <div class="mc-label">Layers</div>
+            <div class="toggles">
+              <label class="tgl">
+                <input type="checkbox" id="tglLabels" checked />
+                <span class="tgl-sw"></span><span class="tgl-txt">Zoning labels</span>
+              </label>
+              <label class="tgl">
+                <input type="checkbox" id="tglCouncil" />
+                <span class="tgl-sw"></span><span class="tgl-txt">Council districts</span>
+              </label>
+              <label class="tgl">
+                <input type="checkbox" id="tglOfficial" />
+                <span class="tgl-sw"></span><span class="tgl-txt">Official Mesa zoning</span>
+              </label>
+            </div>
+            <p class="mc-help">Labels are the City’s own and appear as you zoom in. With “Official
+              Mesa zoning” on, the proposed permissions &amp; changes stay highlighted right over
+              Mesa’s adopted map.</p>
+          </div>
+
+          <div class="mc-block mc-legend">
+            <div class="mc-label">Legend</div>
+            <div id="map-legend" class="legend"></div>
+            <p class="mc-stats" id="map-stats"></p>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-stage">
+          <div id="map"></div>
+          <div id="map-loading" class="map-loading">
+            <div class="spinner"></div>
+            <p>Loading Mesa zoning…</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <p class="map-note">
+          <strong>What’s a “zoning area”?</strong> Mesa’s zoning layer is made of mapped polygons — each
+          shares a single zoning designation (e.g. GC, LI) and may cover one or many parcels. Acreage is
+          summed from those polygons. Zoning geometry &amp; codes © City of Mesa GIS. The shading reflects
+          <strong>proposed</strong> changes — a draft that may change with feedback — and is for public
+          information only, not an official zoning determination.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= COMPARISON CHART ================= -->
+    <section id="chart" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">At a glance</span>
+          <h2>Every change, in one chart</h2>
+          <p class="lead">
+            The same <strong>proposed</strong> rules the map shows, laid out district-by-district.
+            <span class="nowrap">P&nbsp;= permitted</span>, <span class="nowrap">A&nbsp;= accessory use</span>,
+            <span class="nowrap">— = not permitted</span>. Highlighted cells are what would change.
+          </p>
+        </div>
+        <div class="chart-legend" id="chartLegend"></div>
+        <div class="chart-scroll">
+          <table class="chart" id="changeChart"></table>
+        </div>
+        <p class="map-note" id="chartNote"></p>
+      </div>
+    </section>
+
+    <!-- ================= STANDARDS ================= -->
+    <section id="standards" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="kicker">Development standards</span>
+          <h2>Welcoming new uses — responsibly</h2>
+          <p class="lead">
+            The goal is to make room for these technologies so the whole community can enjoy their
+            benefits, while keeping them good neighbors. Thoughtful standards for height, light, noise,
+            screening and traffic strike that balance — opportunity on one side, livability on the other.
+          </p>
+        </div>
+        <div class="standards-grid" id="standardsGrid"></div>
+        <p class="standards-note">
+          <strong>These figures are proposed starting points</strong> — the specific dimensions and
+          thresholds below are draft ideas meant to spark discussion, and they may be refined as
+          stakeholders and the community weigh in.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section id="faq" class="section section-alt">
+      <div class="container container-narrow">
+        <div class="section-head">
+          <span class="kicker">Plain-language answers</span>
+          <h2>Frequently asked questions</h2>
+        </div>
+        <div class="faq" id="faqList"></div>
+      </div>
+    </section>
+
+    <!-- ================= TIMELINE ================= -->
+    <section id="process" class="section">
+      <div class="container container-narrow">
+        <div class="section-head">
+          <span class="kicker">Process &amp; timeline</span>
+          <h2>How it becomes code</h2>
+          <p class="lead">A <strong>tentative</strong> path — dates are subject to change as they
+            move through review.</p>
+        </div>
+        <ol class="timeline" id="timeline"></ol>
+        <div class="cta-box">
+          <h3>Have a comment?</h3>
+          <p>The draft text amendments are available for public review. Submit comments through the
+             City’s Long Range Planning team.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="https://www.mesaaz.gov/lrplanning" target="_blank" rel="noopener">
+              mesaaz.gov/lrplanning →</a>
+            <a class="btn btn-ghost-light" href="onepager.html">📄 Open the one-page summary</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-bar" aria-hidden="true"></div>
+    <div class="container">
+      <div class="foot-cols">
+        <div>
+          <img src="assets/img/mesa-logo.png" alt="City of Mesa" class="foot-logo" />
+          <p class="foot-note">An informational presentation of the proposed Fleet-Based Services &amp;
+             Service Station text amendments to the Mesa Zoning Ordinance.</p>
+        </div>
+        <div>
+          <h4>Sources &amp; data</h4>
+          <ul>
+            <li>City of Mesa draft ordinance &amp; P&amp;Z staff report (June 2026)</li>
+            <li>City of Mesa GIS — Planning / ZoningOverlay</li>
+            <li>Arizona HB 2875 (pending)</li>
+            <li>Imagery © Esri · Map © OpenStreetMap, CARTO</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li>City of Mesa — Long Range Planning</li>
+            <li><a href="https://www.mesaaz.gov/lrplanning" target="_blank" rel="noopener">mesaaz.gov/lrplanning</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="foot-fine">This site is an unofficial public-information tool. Permission shading is a
+        plain-language interpretation of the draft land-use tables, not a zoning verification. Confirm
+        any specific question with City of Mesa Planning. Product names &amp; images are property of their
+        respective owners, shown for illustration.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/map.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
