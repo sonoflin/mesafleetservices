@@ -128,6 +128,20 @@ section{scroll-margin-top:var(--nav-h)}
 /* ---------------- sections ---------------- */
 .section{padding:var(--sp) 0}
 .section-alt{background:var(--bg-alt)}
+/* subtle, modern brand-color glows on select white sections — echoes the hero
+   "mesa" backdrop for depth, used sparingly (not on every section) */
+.section.tinted{position:relative;overflow:hidden}
+.section.tinted > .container,.section.tinted > .container-wide,.section.tinted > .container-narrow{position:relative;z-index:1}
+.section.tinted::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(640px 400px at 94% -8%, rgba(228,125,28,.07), transparent 62%),
+    radial-gradient(560px 480px at -6% 110%, rgba(0,113,185,.07), transparent 62%);}
+/* a whisper-faint mesa silhouette closing the last section into the footer */
+.section.mesa-close::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(120% 100% at 18% 100%, rgba(187,32,52,.06) 0 40%, transparent 41%),
+    radial-gradient(120% 130% at 50% 100%, rgba(228,125,28,.06) 0 44%, transparent 45%),
+    radial-gradient(140% 150% at 84% 100%, rgba(0,113,185,.07) 0 52%, transparent 53%);}
 .section-head{max-width:60ch;margin:0 auto clamp(34px,4vw,60px);text-align:center}
 .section-head .kicker{justify-content:center}
 .section-head h2{font-size:clamp(28px,4.4vw,58px);font-weight:300}

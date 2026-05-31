@@ -284,44 +284,44 @@ const STANDARDS = [
 
 const FAQ = [
   {
-    q: 'Are drone delivery operations now allowed in Mesa? Where?',
-    a: 'Yes. Drones are regulated as <strong>aerial-based vehicles</strong> within the new <strong>Fleet-Based Services</strong> use. A small drone operation (24 or fewer aerial vehicles under 10,000 lbs) is a <em>Light Fleet-Based Service</em>, permitted in the <strong>LC</strong> and <strong>GC</strong> commercial districts and the <strong>LI, GI and HI</strong> employment districts — and allowed as an <em>accessory</em> use in the downtown DB-1, DB-2 and DC districts. Larger operations are <em>Heavy Fleet-Based Services</em> (see below). The Zoning Administrator and Planning Director retain discretion to approve alternative screening and reduced setbacks (see the administrative-flexibility question).',
+    q: 'Are drone delivery operations allowed in Mesa today — and what would change?',
+    a: 'Today it’s <strong>unclear</strong>. The current code’s <em>Light Fleet-Based Services</em> use was written around <strong>ground</strong> vehicles and doesn’t squarely address aerial (drone) operations — that gray area is part of <em>why</em> these amendments are being proposed. <strong>Under the proposal</strong>, drones would be treated as <strong>aerial-based vehicles</strong> within Fleet-Based Services: a small operation (24 or fewer aerial vehicles under 10,000 lbs) would be a <em>Light Fleet-Based Service</em>, proposed to be permitted in the <strong>LC</strong> and <strong>GC</strong> commercial districts and the <strong>LI, GI and HI</strong> employment districts — and as an <em>accessory</em> use in the downtown DB-1, DB-2 and DC districts. Larger operations would be <em>Heavy Fleet-Based Services</em>. The Zoning Administrator and Planning Director would retain discretion over screening and setbacks.',
   },
   {
     q: 'Why doesn’t the code mention “drones” by name?',
     a: 'On purpose. Arizona law — including <strong>pending bill HB 2875</strong> — reserves the regulation of how drones are <em>owned and operated</em> (flight) to the state and the FAA, while preserving each city’s ability to apply <strong>generally applicable</strong> zoning and land-use standards. So instead of singling out drones, Mesa regulates <strong>“aerial-based vehicles”</strong> within the broader <strong>Fleet-Based Services</strong> use. That keeps the code focused on <em>land use</em> — where vehicles park, charge, stage and how they’re screened — and squarely within the City’s authority, while being mindful of the evolving state law.',
   },
   {
-    q: 'What exactly changed for Light Fleet-Based Services?',
-    a: 'Three things: (1) the definition was rewritten to cap it at <strong>24 vehicles</strong> and to explicitly include <strong>ground- OR aerial-based</strong> vehicles (drones); (2) it was <strong>added to Limited Commercial (LC)</strong> and <strong>removed from Office Commercial (OC)</strong>; and (3) it can now operate as an <strong>accessory use</strong> in the LC, GC, LI, GI, HI districts and the DB-1, DB-2 & DC downtown districts.',
+    q: 'What would change for Light Fleet-Based Services?',
+    a: 'Three things are proposed: (1) the definition would be rewritten to cap it at <strong>24 vehicles</strong> and to explicitly include <strong>ground- OR aerial-based</strong> vehicles (drones); (2) it would be <strong>added to Limited Commercial (LC)</strong> and <strong>removed from Office Commercial (OC)</strong>; and (3) it could operate as an <strong>accessory use</strong> in the LC, GC, LI, GI, HI districts and the DB-1, DB-2 & DC downtown districts.',
   },
   {
-    q: 'What is the new “Heavy Fleet-Based Services” use, and where is it NOT allowed?',
-    a: 'It is a brand-new classification for higher-intensity fleets — any vehicle over <strong>10,000 lbs</strong>, or <strong>more than 24</strong> vehicles under 10,000 lbs. Because of noise and traffic, it is limited to <strong>General Commercial (GC), General Industrial (GI) and Heavy Industrial (HI)</strong>. It is <strong>not allowed</strong> in neighborhood, limited or office commercial, mixed-use, planned employment park, light industrial, any downtown district, or any residential district.',
+    q: 'What is the proposed “Heavy Fleet-Based Services” use, and where would it NOT be allowed?',
+    a: 'It would be a brand-new classification for higher-intensity fleets — any vehicle over <strong>10,000 lbs</strong>, or <strong>more than 24</strong> vehicles under 10,000 lbs. Because of noise and traffic, it is proposed to be limited to <strong>General Commercial (GC), General Industrial (GI) and Heavy Industrial (HI)</strong>. It would <strong>not</strong> be allowed in neighborhood, limited or office commercial, mixed-use, planned employment park, light industrial, any downtown district, or any residential district.',
   },
   {
     q: 'How is a private fleet charging depot different from a public charging “service station”?',
-    a: 'A <strong>Service Station</strong> serves the <em>general public</em> and may dispense gasoline, diesel <em>or</em> electricity. A <strong>Fleet-Based Service</strong> is a <em>private</em> operation that parks, stages, dispatches and charges a company’s own vehicles (robo-taxis, delivery vans, drones). The amendments deliberately separate the two so a fleet depot is not regulated as — or mistaken for — a public gas/charging station.',
+    a: 'Under the proposal, a <strong>Service Station</strong> serves the <em>general public</em> and may dispense gasoline, diesel <em>or</em> electricity. A <strong>Fleet-Based Service</strong> is a <em>private</em> operation that parks, stages, dispatches and charges a company’s own vehicles (robo-taxis, delivery vans, drones). The amendments would deliberately separate the two so a fleet depot is not regulated as — or mistaken for — a public gas/charging station.',
   },
   {
-    q: 'Where can a business add EV charging without special approval, and what are the limits?',
-    a: 'The new <strong>Accessory Electric Vehicle Charging</strong> use is permitted across the NC, LC, GC, OC and MX commercial districts; the PEP, LI, GI and HI employment districts; and the DB-1, DB-2 & DC downtown districts. It is capped at <strong>16 EVSE-equipped spaces</strong> and <strong>may not occupy parking required</strong> for the site’s principal use — keeping it genuinely accessory rather than a back-door service station.',
+    q: 'Where could a business add EV charging without special approval, and what are the limits?',
+    a: 'Today there’s no dedicated category for this. The proposed <strong>Accessory Electric Vehicle Charging</strong> use would be permitted across the NC, LC, GC, OC and MX commercial districts; the PEP, LI, GI and HI employment districts; and the DB-1, DB-2 & DC downtown districts. It would be capped at <strong>16 EVSE-equipped spaces</strong> and could <strong>not occupy parking required</strong> for the site’s principal use — keeping it genuinely accessory rather than a back-door service station.',
   },
   {
-    q: 'What changed for traditional Service Stations?',
-    a: 'The definition now explicitly includes <strong>electricity via EVSE</strong> alongside gasoline and diesel, and excludes dedicated fleet operations. Development standards were modernized: <strong>16 ft</strong> max canopy height and <strong>30 in</strong> fascia, recessed canopy lighting (≤ 20 footcandles within 150 ft of homes), new vehicle <strong>queuing/stacking</strong> rules, and a <strong>100 ft separation</strong> from residential uses. A maximum of <strong>two</strong> service stations is allowed at any arterial intersection.',
+    q: 'What would change for traditional Service Stations?',
+    a: 'The definition would explicitly include <strong>electricity via EVSE</strong> alongside gasoline and diesel, and exclude dedicated fleet operations. Development standards would be modernized: <strong>16 ft</strong> max canopy height and <strong>30 in</strong> fascia, recessed canopy lighting (≤ 20 footcandles within 150 ft of homes), new vehicle <strong>queuing/stacking</strong> rules, and a <strong>100 ft separation</strong> from residential uses. A maximum of <strong>two</strong> service stations would be allowed at any arterial intersection.',
   },
   {
-    q: 'Where can the Zoning Administrator or Planning Director modify these rules?',
-    a: 'The code builds in deliberate flexibility. The <strong>Zoning Administrator</strong> may approve <em>alternative screening</em> methods on a line-of-sight study showing equal-or-greater screening. The <strong>Planning Director</strong> may approve a <em>reduced residential setback</em> if a sound study shows ≤ 60 dB at the property line, and may approve <em>modified queuing/stacking</em> through Development Plan Review based on a circulation study. So a use may be “permitted here, subject to standards the administrator can tailor.”',
+    q: 'Where could the Zoning Administrator or Planning Director modify these rules?',
+    a: 'The proposal builds in deliberate flexibility. The <strong>Zoning Administrator</strong> could approve <em>alternative screening</em> methods on a line-of-sight study showing equal-or-greater screening. The <strong>Planning Director</strong> could approve a <em>reduced residential setback</em> if a sound study shows ≤ 60 dB at the property line, and could approve <em>modified queuing/stacking</em> through Development Plan Review based on a circulation study. So a use may be “permitted here, subject to standards the administrator can tailor.”',
   },
   {
-    q: 'How are neighborhoods protected from noise and visual impact?',
-    a: 'Several layers: a <strong>100 ft separation</strong> between charging/fueling/fleet equipment and any home or residential zoning; a <strong>60 dB</strong> noise ceiling at the property line (with no increase where ambient is already above 60 dB); masonry and perforated-metal <strong>screening walls</strong>; aerial fleet yards capped at <strong>30 ft</strong> tall; and lighting limited to <strong>20 footcandles</strong> near homes.',
+    q: 'How would neighborhoods be protected from noise and visual impact?',
+    a: 'The proposal layers several safeguards: a <strong>100 ft separation</strong> between charging/fueling/fleet equipment and any home or residential zoning; a <strong>60 dB</strong> noise ceiling at the property line (with no increase where ambient is already above 60 dB); masonry and perforated-metal <strong>screening walls</strong>; aerial fleet yards capped at <strong>30 ft</strong> tall; and lighting limited to <strong>20 footcandles</strong> near homes.',
   },
   {
-    q: 'Does this rezone any property or change what my land is zoned?',
-    a: 'No. This is a <strong>text amendment</strong> to the Zoning Ordinance — it changes the <em>rules</em> for these uses (definitions, where they’re allowed, and development standards). It does <strong>not</strong> rezone any parcel. The map on this site shows how the existing zoning map intersects with the new rules.',
+    q: 'Would this rezone any property or change what my land is zoned?',
+    a: 'No. This is a <strong>text amendment</strong> to the Zoning Ordinance — it would change the <em>rules</em> for these uses (definitions, where they’re allowed, and development standards). It does <strong>not</strong> rezone any parcel. The map on this site shows how the existing zoning map would intersect with the proposed rules.',
   },
   {
     q: 'When would these changes take effect?',
