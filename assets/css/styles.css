@@ -225,9 +225,16 @@ section{scroll-margin-top:var(--nav-h)}
 .tgl input:checked + .tgl-sw{background:var(--blue)}
 .tgl input:checked + .tgl-sw::after{transform:translateX(16px)}
 .tgl input:focus-visible + .tgl-sw{outline:2px solid var(--amber);outline-offset:2px}
-.legend{display:flex;flex-wrap:wrap;gap:8px 16px}
+.legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px}
 .lg-row{display:flex;align-items:center;gap:8px;font-size:clamp(12.5px,.95vw,15px);color:var(--muted)}
 .lg-sw{width:15px;height:15px;border-radius:4px;border:1px solid rgba(0,0,0,.12);flex:none}
+/* quiet "not allowed / no change" context — present but deliberately understated */
+.lg-row--bg{opacity:.6;font-size:clamp(11.5px,.88vw,13.5px)}
+.lg-row--bg .lg-sw{width:12px;height:12px;border-radius:3px}
+/* shown when nothing positive is on the map (e.g. a brand-new use in "Today") */
+.lg-empty{flex-basis:100%;margin:0 0 4px;font-size:clamp(12.5px,.95vw,14.5px);color:var(--muted);line-height:1.5}
+.lg-empty strong{color:var(--ink)}
+.lg-empty em{font-style:normal;font-weight:600;color:var(--blue)}
 .mc-stats{font-size:clamp(13px,1vw,16px);color:var(--ink);margin:12px 0 0;padding-top:12px;border-top:1px dashed var(--line-2);line-height:1.5}
 .stat-up{color:var(--blue);font-weight:700}
 .stat-down{color:var(--red);font-weight:700}

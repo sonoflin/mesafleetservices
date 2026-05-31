@@ -139,21 +139,81 @@ const MesaMap = (function () {
   }
 
   /* ---- legend & stats ---------------------------------------------------- */
+  /* The legend is built from what is ACTUALLY painted on the map for the current
+     use + view — never a static list. So a color a user can't find on the map
+     (e.g. the amber "accessory" swatch for a use that has no accessory areas, or
+     "No longer allowed" for a brand-new use that never existed) simply doesn't
+     appear. Each category is tagged foreground ("active" — a permission/change
+     the user is meant to spot) or background ("bg" — quiet not-allowed / no-change
+     context) so the not-permitted state reads in a calm, non-overwhelming way. */
+  function legendCandidates() {
+    if (state.scenario === 'changes') {
+      return [
+        { item: CHANGE.ADDED,     bg: false },
+        { item: CHANGE.ACCESSORY, bg: false },
+        { item: CHANGE.REMOVED,   bg: false },
+        { item: CHANGE.SAME_YES,  bg: true  },
+        { item: CHANGE.SAME_NO,   bg: true  },
+      ];
+    }
+    return [
+      { item: STATUS.P,  bg: false },
+      { item: STATUS.A,  bg: false },
+      { item: STATUS.NA, bg: true  },
+      { item: STATUS.N,  bg: true  },
+    ];
+  }
+
+  /* Set of category keys genuinely drawn on the map right now (null = data not
+     loaded yet, so the caller falls back to the full candidate list). */
+  function presentLegendKeys() {
+    if (!geojsonData) return null;
+    const present = new Set();
+    geojsonData.features.forEach((f) => {
+      const code = f.properties.Zoning;
+      const key = state.scenario === 'changes'
+        ? getChange(state.use, code).key
+        : getStatus(state.use, state.scenario, code).key;
+      present.add(key);
+    });
+    return present;
+  }
+
+  /* Short plain-language line shown when there is nothing positive on the map —
+     so "Heavy Fleet today" (a use that doesn't exist yet) or a use that's allowed
+     nowhere reads intentionally, not broken. */
+  function emptyLegendNote() {
+    const label = USES[state.use].label;
+    if (state.scenario === 'current') {
+      return USES[state.use].isNew
+        ? `<strong>${label}</strong> isn’t defined in Mesa’s code today — there’s nothing to map yet. Switch to <em>Proposed</em> to see where it would be allowed.`
+        : `<strong>${label}</strong> isn’t permitted in any district today.`;
+    }
+    if (state.scenario === 'proposed') {
+      return `<strong>${label}</strong> wouldn’t be permitted in any district.`;
+    }
+    return `No districts change for <strong>${label}</strong>.`;
+  }
+
   function buildLegend() {
     const el = document.getElementById('map-legend');
     if (!el) return;
-    let rows;
-    if (state.scenario === 'changes') {
-      rows = [CHANGE.ADDED, CHANGE.ACCESSORY, CHANGE.REMOVED, CHANGE.SAME_YES, CHANGE.SAME_NO];
-    } else {
-      const items = [STATUS.P, STATUS.A];
-      if (state.scenario === 'current' && USES[state.use].isNew) items.push(STATUS.NA);
-      items.push(STATUS.N);
-      rows = items;
-    }
-    el.innerHTML = rows
-      .map((r) => `<div class="lg-row"><span class="lg-sw" style="background:${r.color}"></span>${r.label}</div>`)
+    const present = presentLegendKeys();
+    const rows = present
+      ? legendCandidates().filter((c) => present.has(c.item.key))
+      : legendCandidates(); // still loading → placeholder until data arrives
+
+    const hasActive = rows.some((r) => !r.bg);
+    const swatches = rows
+      .map((r) =>
+        `<div class="lg-row${r.bg ? ' lg-row--bg' : ''}">` +
+        `<span class="lg-sw" style="background:${r.item.color}"></span>${r.item.label}</div>`)
       .join('');
+
+    const note = (!hasActive && present)
+      ? `<p class="lg-empty">${emptyLegendNote()}</p>`
+      : '';
+    el.innerHTML = note + swatches;
   }
 
   function updateStats() {

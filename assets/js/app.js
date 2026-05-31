@@ -252,16 +252,37 @@
   /* ---- lazy-init the map when it nears the viewport ---------------------- */
   function wireMapLazyInit() {
     const stage = document.getElementById('map-section');
-    const obs = new IntersectionObserver((entries, o) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          MesaMap.init();
-          setTimeout(() => MesaMap.refreshSize(), 250);
-          o.disconnect();
-        }
-      });
+    if (!stage) return;
+
+    let obs = null;
+    let started = false;
+
+    function nearViewport() {
+      const r = stage.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      return r.top < vh + 300 && r.bottom > -300;
+    }
+    function start() {
+      if (started) return;
+      started = true;
+      if (obs) obs.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      MesaMap.init(); // idempotent — guarded internally, safe if called twice
+      setTimeout(() => MesaMap.refreshSize(), 250);
+    }
+    const onScroll = () => { if (nearViewport()) start(); };
+
+    // Primary path: fire as the section nears the viewport.
+    obs = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) start();
     }, { rootMargin: '300px 0px' });
     obs.observe(stage);
+
+    // Fallbacks for when the observer's initial callback doesn't fire — e.g. a
+    // reload that restored scroll position, a direct #map-section deep link, or
+    // a headless/automated context: check synchronously now, and on scroll.
+    if (nearViewport()) start();
+    else window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   /* ---- boot -------------------------------------------------------------- */
