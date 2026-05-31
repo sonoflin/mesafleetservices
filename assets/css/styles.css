@@ -93,7 +93,11 @@ section{scroll-margin-top:var(--nav-h)}
   font-weight:700;color:var(--blue);background:rgba(0,113,185,.08);
   border:1px solid rgba(0,113,185,.2);padding:8px 15px;border-radius:30px;margin-bottom:24px}
 .hero h1{font-size:clamp(36px,7vw,92px);font-weight:300;color:var(--ink);line-height:1.04}
-.hero h1 span{font-weight:700;color:var(--red)}
+.hero h1 .hl{font-weight:700}
+.hero h1 .c-red{color:var(--red)}
+.hero h1 .c-amber{color:var(--amber)}
+.hero h1 .c-blue{color:var(--blue)}
+.hero h1 .amp{font-weight:300;color:var(--ink);opacity:.55}
 .hero-sub{font-size:clamp(16px,1.6vw,24px);color:var(--muted);max-width:46ch;margin:24px 0 34px;font-weight:400}
 .hero-actions{display:flex;flex-wrap:wrap;gap:14px}
 .hero-stats{display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,64px);margin-top:clamp(40px,5vw,72px);
@@ -286,9 +290,10 @@ section{scroll-margin-top:var(--nav-h)}
 .std-card h4{font-size:clamp(16px,1.3vw,21px)}
 .std-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:clamp(14px,1vw,17px)}
 .std-card li{margin:6px 0}
-.standards-note{max-width:74ch;margin:clamp(22px,2.5vw,34px) auto 0;text-align:center;
+.standards-note{max-width:80ch;margin:0 auto clamp(26px,3vw,40px);text-align:center;
   color:var(--muted);font-size:clamp(13.5px,1.05vw,17px);line-height:1.6;
-  border-top:2px solid var(--line);padding-top:clamp(16px,1.8vw,24px)}
+  background:rgba(228,125,28,.07);border:1px solid rgba(228,125,28,.25);
+  border-radius:var(--radius-sm);padding:clamp(12px,1.4vw,18px) clamp(16px,2vw,26px)}
 .standards-note strong{color:var(--amber)}
 
 /* ---------------- faq ---------------- */
