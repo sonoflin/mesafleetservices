@@ -66,9 +66,14 @@ const DISTRICTS = {
 const STATUS = {
   P:  { key: 'P',  label: 'Permitted (principal use)',  color: '#0071B9' }, // Mesa blue
   A:  { key: 'A',  label: 'Permitted as accessory use', color: '#E47D1C' }, // Mesa amber
+  C:  { key: 'C',  label: 'Conditional use permit required', color: '#5C6BC0' },
   N:  { key: 'N',  label: 'Not permitted',              color: '#aab3b8' },
   NA: { key: 'NA', label: 'Use not defined in current code', color: '#cdd4d8' },
 };
+
+function statusAllowed(key) {
+  return key === 'P' || key === 'A' || key === 'C';
+}
 
 /* ---- The uses the map can display --------------------------------------- */
 /* For each use: meta + current/proposed objects keyed by district code.
@@ -82,16 +87,15 @@ const USES = {
     tagline: '≤ 24 ground- or aerial-based vehicles under 10,000 lbs (incl. small drone fleets, robo-taxi & delivery fleets)',
     blurb: 'Passenger transport, local delivery, medical transport and similar operations that park, charge, stage or dispatch up to 24 vehicles (ground OR aerial) rated under 10,000 lbs.',
     current: {
-      // existing code: permitted in GC & OC (commercial) and LI, GI, HI (employment)
-      GC: 'P', OC: 'P', LI: 'P', GI: 'P', HI: 'P',
+      // Tables 11-6-2, 11-7-2, 11-8-3 (adopted code)
+      GC: 'P', LI: 'P', GI: 'P', HI: 'P',
+      'DB-2': 'P', DC: 'C',
     },
     proposed: {
-      // added LC, REMOVED OC; now also allowed as an accessory use downtown
       LC: 'P', GC: 'P', LI: 'P', GI: 'P', HI: 'P',
-      'DB-1': 'A', 'DB-2': 'A', DC: 'A',
-      OC: 'N', // explicitly removed
+      'DB-2': 'P', DC: 'C',
     },
-    notes: 'Added to Limited Commercial (LC); removed from Office Commercial (OC). Newly allowed as an accessory use in the LC, GC, LI, GI, HI and the DB-1, DB-2 & DC downtown districts.',
+    notes: 'Definition rewritten (≤24 vehicles, ground or aerial). Added to Limited Commercial (LC). Remains permitted in GC, LI, GI and HI. Downtown unchanged: permitted in DB-2, conditional use permit in DC. Not permitted in Office Commercial (OC).',
   },
 
   heavy_fleet: {
@@ -104,7 +108,7 @@ const USES = {
     proposed: {
       GC: 'P', GI: 'P', HI: 'P',
     },
-    notes: 'New classification. Permitted in General Commercial (GC), General Industrial (GI) and Heavy Industrial (HI). Not allowed in neighborhood, office, mixed-use, downtown or residential districts.',
+    notes: 'New classification. Permitted in General Commercial (GC), General Industrial (GI) and Heavy Industrial (HI) per draft Table 11-6-2. Not allowed in neighborhood, limited or office commercial, mixed-use, light industrial, downtown or residential districts.',
   },
 
   accessory_ev: {
@@ -154,11 +158,11 @@ const CHANGE = {
 function getChange(useKey, code) {
   const cur = getStatus(useKey, 'current', code).key;
   const pro = getStatus(useKey, 'proposed', code).key;
-  const curAllowed = cur === 'P' || cur === 'A';
-  const proAllowed = pro === 'P' || pro === 'A';
+  const curAllowed = statusAllowed(cur);
+  const proAllowed = statusAllowed(pro);
   if (!curAllowed && proAllowed) return pro === 'A' ? CHANGE.ACCESSORY : CHANGE.ADDED;
   if (curAllowed && !proAllowed) return CHANGE.REMOVED;
-  if (curAllowed && proAllowed)  return CHANGE.SAME_YES;
+  if (curAllowed && proAllowed) return CHANGE.SAME_YES;
   return CHANGE.SAME_NO;
 }
 
@@ -285,7 +289,7 @@ const STANDARDS = [
 const FAQ = [
   {
     q: 'Are drone delivery operations allowed in Mesa today, and what would change?',
-    a: '<p>Today it’s <strong>unclear</strong>. The current code’s <em>Light Fleet-Based Services</em> use was written around <strong>ground</strong> vehicles and does not clearly address aerial (drone) operations. That gray area is part of <em>why</em> these amendments are being proposed.</p><p><strong>Under the proposal</strong>, drones would be treated as <strong>aerial-based vehicles</strong> within Fleet-Based Services. A small operation (24 or fewer aerial vehicles under 10,000 lbs) would be a <em>Light Fleet-Based Service</em>, proposed to be permitted in the <strong>LC</strong> and <strong>GC</strong> commercial districts and the <strong>LI, GI and HI</strong> employment districts, and as an <em>accessory</em> use in the downtown DB-1, DB-2 and DC districts. Larger operations would be <em>Heavy Fleet-Based Services</em>. The Zoning Administrator and Planning Director would retain discretion over screening and setbacks.</p>',
+    a: '<p>Today it’s <strong>unclear</strong>. The current code’s <em>Light Fleet-Based Services</em> use was written around <strong>ground</strong> vehicles and does not clearly address aerial (drone) operations. That gray area is part of <em>why</em> these amendments are being proposed.</p><p><strong>Under the proposal</strong>, drones would be treated as <strong>aerial-based vehicles</strong> within Fleet-Based Services. A small operation (24 or fewer aerial vehicles under 10,000 lbs) would be a <em>Light Fleet-Based Service</em>, proposed to be permitted in the <strong>LC</strong> and <strong>GC</strong> commercial districts and the <strong>LI, GI and HI</strong> employment districts (same as today in GC and employment). Downtown stays as today: <strong>permitted in DB-2</strong> and <strong>conditional use permit in DC</strong>. Larger operations would be <em>Heavy Fleet-Based Services</em>. The Zoning Administrator and Planning Director would retain discretion over screening and setbacks.</p>',
   },
   {
     q: 'Why doesn’t the code mention “drones” by name?',
@@ -293,11 +297,11 @@ const FAQ = [
   },
   {
     q: 'What would change for Light Fleet-Based Services?',
-    a: 'Three things are proposed: (1) the definition would be rewritten to cap it at <strong>24 vehicles</strong> and to explicitly include <strong>ground- OR aerial-based</strong> vehicles (drones); (2) it would be <strong>added to Limited Commercial (LC)</strong> and <strong>removed from Office Commercial (OC)</strong>; and (3) it could operate as an <strong>accessory use</strong> in the LC, GC, LI, GI, HI districts and the DB-1, DB-2 & DC downtown districts.',
+    a: 'Three things are proposed: (1) the definition would be rewritten to cap it at <strong>24 vehicles</strong> and to explicitly include <strong>ground- OR aerial-based</strong> vehicles (drones); (2) it would be <strong>added to Limited Commercial (LC)</strong> (it is already permitted in GC, LI, GI and HI, and is <strong>not permitted in Office Commercial</strong>); and (3) downtown districts stay the same — <strong>permitted in DB-2</strong>, <strong>conditional use permit in DC</strong>. The draft also adds standards for operating as an accessory use where principal use is already allowed.',
   },
   {
     q: 'What is the proposed “Heavy Fleet-Based Services” use, and where would it NOT be allowed?',
-    a: '<p>It would be a brand-new classification for higher-intensity fleets: any vehicle over <strong>10,000 lbs</strong>, or <strong>more than 24</strong> vehicles under 10,000 lbs.</p><p>Because of noise and traffic, it is proposed to be limited to <strong>General Commercial (GC), General Industrial (GI) and Heavy Industrial (HI)</strong>. It would <strong>not</strong> be allowed in neighborhood, limited or office commercial, mixed-use, planned employment park, light industrial, any downtown district, or any residential district.</p>',
+    a: '<p>It would be a brand-new classification for higher-intensity fleets: any vehicle over <strong>10,000 lbs</strong>, or <strong>more than 24</strong> vehicles under 10,000 lbs.</p><p>Per the draft land-use tables, it is proposed in <strong>General Commercial (GC), General Industrial (GI) and Heavy Industrial (HI)</strong>. It would <strong>not</strong> be allowed in neighborhood, limited or office commercial, mixed-use, planned employment park, light industrial, any downtown district, or any residential district.</p>',
   },
   {
     q: 'How is a private fleet charging depot different from a public charging “service station”?',

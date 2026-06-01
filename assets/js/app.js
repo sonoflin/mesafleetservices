@@ -65,10 +65,20 @@
   function cell(useKey, code) {
     const cur = getStatus(useKey, 'current', code);
     const pro = getStatus(useKey, 'proposed', code);
-    const glyph = (s) => (s.key === 'P' ? 'P' : s.key === 'A' ? 'A' : '—');
-    const cls = (s) => (s.key === 'P' ? 'c-p' : s.key === 'A' ? 'c-a' : 'c-n');
-    const wasAllowed = cur.key === 'P' || cur.key === 'A';
-    const nowAllowed = pro.key === 'P' || pro.key === 'A';
+    const glyph = (s) => {
+      if (s.key === 'P') return 'P';
+      if (s.key === 'A') return 'A';
+      if (s.key === 'C') return 'CUP';
+      return '—';
+    };
+    const cls = (s) => {
+      if (s.key === 'P') return 'c-p';
+      if (s.key === 'A') return 'c-a';
+      if (s.key === 'C') return 'c-c';
+      return 'c-n';
+    };
+    const wasAllowed = statusAllowed(cur.key);
+    const nowAllowed = statusAllowed(pro.key);
     // A real change is a flip in allowed-ness, or a P<->A reclassification.
     // "not allowed -> not allowed" (incl. a new use that still isn't permitted here) is NOT a change.
     let changed = false, dir = '';
@@ -78,11 +88,26 @@
     } else if (wasAllowed && nowAllowed && cur.key !== pro.key) {
       changed = true; dir = ' ch-mod';
     }
-    return `<td class="cell${changed ? ' changed' + dir : ''}">
+    const footnote =
+      useKey === 'light_fleet' && code === 'OC'
+        ? ' title="Not permitted in Office Commercial (OC) today or under the proposal"'
+        : '';
+    return `<td class="cell${changed ? ' changed' + dir : ''}"${footnote}>
         <span class="dot ${cls(cur)}">${glyph(cur)}</span>
         <span class="arrow">→</span>
         <span class="dot ${cls(pro)}">${glyph(pro)}</span>
       </td>`;
+  }
+
+  function chartHasRemoval() {
+    for (const u of USE_ORDER) {
+      for (const g of CHART_GROUPS) {
+        for (const code of g.codes) {
+          if (getChange(u, code).key === 'REMOVED') return true;
+        }
+      }
+    }
+    return false;
   }
 
   function renderChart() {
@@ -111,13 +136,17 @@
     body += '</tbody>';
     document.getElementById('changeChart').innerHTML = head + body;
 
-    document.getElementById('chartLegend').innerHTML = [
+    let legend = [
       ['c-p', 'P', 'Permitted'],
       ['c-a', 'A', 'Accessory use'],
+      ['c-c', 'CUP', 'Conditional use permit'],
       ['c-n', '—', 'Not permitted'],
     ].map(([c, g, l]) => `<span class="cl-item"><span class="dot ${c}">${g}</span>${l}</span>`).join('') +
-      `<span class="cl-item"><span class="dot ch-add-sw"></span>Newly allowed</span>` +
-      `<span class="cl-item"><span class="dot ch-rem-sw"></span>No longer allowed</span>`;
+      `<span class="cl-item"><span class="dot ch-add-sw"></span>Newly allowed</span>`;
+    if (chartHasRemoval()) {
+      legend += `<span class="cl-item"><span class="dot ch-rem-sw"></span>No longer allowed</span>`;
+    }
+    document.getElementById('chartLegend').innerHTML = legend;
 
     document.getElementById('chartNote').innerHTML =
       `<strong>In words:</strong> ${USES.light_fleet.notes} ${USES.heavy_fleet.notes} ${USES.accessory_ev.notes}`;

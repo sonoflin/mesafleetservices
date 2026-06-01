@@ -21,7 +21,7 @@ const MesaMap = (function () {
     use: 'light_fleet',
     scenario: 'proposed', // 'current' | 'proposed' | 'changes'
     basemap: 'street',
-    labels: true,    // Mesa's authoritative zoning labels
+    labels: false,   // off by default — Mesa GIS triggers Chrome “local network” prompt on city networks
     council: false,
     official: false, // Mesa's official zoning rendering (verification reference)
   };
@@ -64,6 +64,7 @@ const MesaMap = (function () {
     switch (s.key) {
       case 'P': return poly(s.color, 0.72, 0.5, '#ffffff');
       case 'A': return poly(s.color, 0.68, 0.5, '#ffffff');
+      case 'C': return poly(s.color, 0.68, 0.5, '#ffffff');
       case 'NA': return poly(s.color, 0.07, 0.1, '#c4ccd6');
       default:  return poly(s.color, 0.12, 0.2, '#aab4bf');
     }
@@ -91,7 +92,7 @@ const MesaMap = (function () {
       return hidden; // unchanged → let official zoning show through
     }
     const s = getStatus(state.use, state.scenario, code);
-    if (s.key === 'P' || s.key === 'A') {
+    if (s.key === 'P' || s.key === 'A' || s.key === 'C') {
       return { stroke: true, color: s.color, weight: 2.2, opacity: 1, fill: true, fillColor: s.color, fillOpacity: 0.22 };
     }
     return hidden; // not permitted → show official zoning underneath
@@ -115,8 +116,10 @@ const MesaMap = (function () {
     const cur = getStatus(state.use, 'current', code);
     const pro = getStatus(state.use, 'proposed', code);
     const useLabel = USES[state.use].label;
-    const chip = (s) =>
-      `<span class="pp-chip" style="background:${s.color}">${s.key === 'NA' ? 'n/a' : s.key}</span> ${s.label}`;
+    const chip = (s) => {
+      const tag = s.key === 'NA' ? 'n/a' : s.key === 'C' ? 'CUP' : s.key;
+      return `<span class="pp-chip" style="background:${s.color}">${tag}</span> ${s.label}`;
+    };
     return `
       <div class="pp">
         <div class="pp-code">${code}</div>
@@ -159,6 +162,7 @@ const MesaMap = (function () {
     return [
       { item: STATUS.P,  bg: false },
       { item: STATUS.A,  bg: false },
+      { item: STATUS.C,  bg: false },
       { item: STATUS.NA, bg: true  },
       { item: STATUS.N,  bg: true  },
     ];
@@ -230,7 +234,7 @@ const MesaMap = (function () {
         if (c === 'REMOVED') { remAc += ac; remN++; }
       } else {
         const k = getStatus(state.use, state.scenario, code).key;
-        if (k === 'P' || k === 'A') { aAc += ac; aN++; }
+        if (statusAllowed(k)) { aAc += ac; aN++; }
       }
     });
     const ac = (n) => Math.round(n).toLocaleString();
@@ -285,11 +289,11 @@ const MesaMap = (function () {
 
   /* ---- authoritative City of Mesa zoning labels ------------------------- */
   /* We overlay Mesa's OWN "Zoning Labels" layer (PlanningLabels, sublayer 1)
-     instead of hand-placing labels. This guarantees every district is labeled
-     exactly where — and only at the zoom scales — Mesa shows it, so the labels
-     always align with the shaded districts. f:'image' loads the export tile
-     directly as an <img> (no cross-origin XHR needed).                       */
-  function buildMesaLayers() {
+     instead of hand-placing labels. Layers are created only when toggled on
+     (not on page load) so we avoid Chrome’s “local network access” prompt for
+     visitors who don’t need City GIS — see mc-help on the map panel.          */
+  function ensureMesaLayers() {
+    if (mesaLabels) return;
     mesaLabels = L.esri.dynamicMapLayer({
       url: SVC.labels, layers: [1], f: 'image', format: 'png32',
       transparent: true, opacity: 1, pane: 'mlabels', attribution: 'Zoning labels &copy; City of Mesa',
@@ -301,9 +305,12 @@ const MesaMap = (function () {
   }
 
   function applyMesaLabels() {
-    if (!mesaLabels) return;
-    if (state.labels) mesaLabels.addTo(map);
-    else if (map.hasLayer(mesaLabels)) map.removeLayer(mesaLabels);
+    if (!state.labels) {
+      if (mesaLabels && map.hasLayer(mesaLabels)) map.removeLayer(mesaLabels);
+      return;
+    }
+    ensureMesaLayers();
+    if (map && !map.hasLayer(mesaLabels)) mesaLabels.addTo(map);
   }
 
   /* ---- council districts (toggle) --------------------------------------- */
@@ -350,9 +357,13 @@ const MesaMap = (function () {
 
   function setOfficial(on) {
     state.official = on;
-    if (!map || !officialZoning) return;
-    if (on) officialZoning.addTo(map);
-    else if (map.hasLayer(officialZoning)) map.removeLayer(officialZoning);
+    if (!map) return;
+    if (on) {
+      ensureMesaLayers();
+      officialZoning.addTo(map);
+    } else if (officialZoning && map.hasLayer(officialZoning)) {
+      map.removeLayer(officialZoning);
+    }
     restyle(); // switches our layer between solid fills and translucent highlights
   }
 
@@ -382,8 +393,6 @@ const MesaMap = (function () {
 
     buildBaseLayers();
     baseStreet.addTo(map);
-    buildMesaLayers();
-    applyMesaLabels();
     map.fitBounds(MAP_CONFIG.bounds);
     setTimeout(() => map.invalidateSize(), 200);
     loadData();

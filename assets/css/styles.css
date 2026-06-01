@@ -293,6 +293,7 @@ section{scroll-margin-top:var(--nav-h)}
 .cell .arrow{color:var(--line-2);margin:0 5px;font-weight:700}
 .dot{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:7px;color:#fff;font-weight:800;font-size:13px;vertical-align:middle}
 .dot.c-p{background:var(--blue)}
+.dot.c-c{background:#5C6BC0}
 .dot.c-a{background:var(--amber)}
 .dot.c-n{background:#dfe5e9;color:var(--faint)}
 .cell.changed{background:rgba(0,113,185,.05)}
